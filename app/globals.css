@@ -9,8 +9,8 @@
   --color-text-secondary: #a0a0a0; /* Texto secundario/descriptivo */
   
   /* Colores de acento (Accent/Primary) */
-  --color-accent: #64b5f6; /* Azul suave */
-  --color-accent-hover: #42a5f5;
+  --color-accent: #cfe5f7; /* Azul suave */
+  --color-accent-hover: #d5e8f8;
   
   /* Estilos del borde y separadores */
   --color-border: #333333;

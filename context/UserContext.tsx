@@ -1,40 +1,80 @@
 // /context/UserContext.tsx
 'use client';
 
-import React, { createContext, useState, useContext, ReactNode } from 'react';
+import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 
-// 1. Define las interfaces de Tipado
+// ... (Interfaces permanecen iguales) ...
 
-// Para el valor que provee el contexto
 interface UserContextType {
-  userName: string;
-  setUserName: (name: string) => void;
+    userName: string;
+    setUserName: (name: string) => void;
+    isConfirmed: boolean;
+    setIsConfirmed: (confirmed: boolean) => void;
 }
 
-// Para las props del componente UserProvider
 interface UserProviderProps {
-  children: ReactNode; // 'ReactNode' es el tipo correcto para children
+    children: ReactNode;
 }
 
-// 2. Crear el Contexto con un valor inicial tipado
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
-// 3. Crear el Proveedor del Contexto (Solución al error 'children')
-export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
-  const [userName, setUserName] = useState('');
+// CAMBIO CLAVE: Usamos claves para sessionStorage
+const NAME_STORAGE_KEY = 'drawingAppUserName';
+const CONFIRM_STORAGE_KEY = 'drawingAppIsConfirmed';
 
-  return (
-    <UserContext.Provider value={{ userName, setUserName }}>
-      {children}
-    </UserContext.Provider>
-  );
+
+export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
+    
+    const [userName, setUserName] = useState('');
+    const [isConfirmed, setIsConfirmed] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    // 1. Carga de Persistencia (SOLO después de la hidratación y usando sessionStorage)
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            // CAMBIO CLAVE: Usar sessionStorage.getItem
+            const storedName = sessionStorage.getItem(NAME_STORAGE_KEY) || '';
+            const storedConfirmation = sessionStorage.getItem(CONFIRM_STORAGE_KEY) === 'true';
+            
+            setUserName(storedName);
+            setIsConfirmed(storedConfirmation);
+            setIsLoaded(true); 
+        }
+    }, []); 
+
+    // 2. Guardado de Persistencia (Usando sessionStorage)
+    useEffect(() => {
+        if (isLoaded) { 
+            // CAMBIO CLAVE: Usar sessionStorage.setItem
+            sessionStorage.setItem(NAME_STORAGE_KEY, userName);
+            sessionStorage.setItem(CONFIRM_STORAGE_KEY, String(isConfirmed));
+        }
+    }, [userName, isConfirmed, isLoaded]); 
+
+    // 3. Función para establecer el nombre, desconfirmando si hay un cambio.
+    const updateUserName = (name: string) => {
+        if (name !== userName) {
+            setIsConfirmed(false); 
+        }
+        setUserName(name);
+    };
+    
+    return (
+        <UserContext.Provider value={{ 
+            userName, 
+            setUserName: updateUserName, 
+            isConfirmed, 
+            setIsConfirmed 
+        }}>
+            {children}
+        </UserContext.Provider>
+    );
 };
 
-// 4. Crear un Hook para usar el Contexto fácilmente
 export const useUser = () => {
-  const context = useContext(UserContext);
-  if (context === undefined) {
-    throw new Error('useUser debe ser usado dentro de un UserProvider');
-  }
-  return context;
+    const context = useContext(UserContext);
+    if (context === undefined) {
+        throw new Error('useUser debe ser usado dentro de un UserProvider');
+    }
+    return context;
 };
