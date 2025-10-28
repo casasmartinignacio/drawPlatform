@@ -30,6 +30,69 @@ body {
   flex-direction: column;
 }
 
+/* globals.css */
+
+.excalidraw-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.excalidraw-wrapper {
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  position: relative;
+}
+
+
+/* Estilos básicos para un botón de guardado */
+.save-button {
+  background-color: #4CAF50; /* Color de fondo verde */
+  color: white; /* Color del texto */
+  padding: 12px 24px; /* Espaciado interno */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Cursor de mano al pasar */
+  font-size: 16px; /* Tamaño de la fuente */
+  transition: background-color 0.3s ease; /* Transición suave al cambiar de color */
+}
+
+/* Estilos al pasar el cursor por encima */
+.save-button:hover {
+  background-color: #45a049; /* Color más oscuro al pasar el cursor */
+}
+
+
+/* Estilos responsivos para diferentes tamaños de pantalla */
+@media (max-width: 768px) {
+  .excalidraw-container {
+    height: 70vh;
+  }
+  
+  .excalidraw-wrapper {
+    height: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .excalidraw-container {
+    height: 60vh;
+  }
+}
+
+/* Opcional: Asegurar que el canvas de Excalidraw sea responsivo */
+.excalidraw-wrapper .excalidraw {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.excalidraw-wrapper .excalidraw .canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
 /* Estilos de la aplicación */
 .app-container {
     display: flex;
