@@ -84,14 +84,14 @@ export default function Home() {
         <div style={{ display: 'flex', gap: '15px', justifyContent: 'center' }}> 
           
           {/* Tarjeta Pizarra (se mantienen los estilos) */}
-          <Link href="/pizarra" style={{...linkCardStyle, padding: '15px'}}>
+          <Link href="/new" style={{...linkCardStyle, padding: '15px'}}>
             <span style={{ fontSize: '2em' }}>✏️</span>
             <h3 style={linkTitleStyle}>Empezar a Dibujar</h3>
             <p style={linkDescriptionStyle}>Ve a la pizarra para crear una nueva obra.</p>
           </Link>
 
           {/* Tarjeta Lista de Dibujos (se mantienen los estilos) */}
-          <Link href="/lista-dibujos" style={{...linkCardStyle, padding: '15px'}}>
+          <Link href="/drawings" style={{...linkCardStyle, padding: '15px'}}>
             <span style={{ fontSize: '2em' }}>📋</span>
             <h3 style={linkTitleStyle}>Ver Mis Obras</h3>
             <p style={linkDescriptionStyle}>Revisa, edita o comparte tus dibujos guardados.</p>
