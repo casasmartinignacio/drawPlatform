@@ -1,9 +1,7 @@
-import useDrawings from './useDrawings';
+import useDrawings from '@/app/drawingsList/useDrawings';
 import DrawList from '@/components/DrawingList';
 
 export default async function DrawingsList() {
-  await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate network delay
-
   const drawings = await useDrawings();
 
   return (

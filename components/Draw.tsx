@@ -1,4 +1,4 @@
-import { Draw } from "./Interface";
+import { Draw } from "@/types/common";
 
 export default async function SingleDraw(params : Draw) {
 
