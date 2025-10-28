@@ -13,13 +13,6 @@ async function createDrawing(drawing: Draw) {
 export default function useCreateDrawing() {
   const queryClient = useQueryClient();
 
-  const mutation = useMutation({
-    mutationFn: (drawing: Draw) => createDrawing(drawing),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["drawings"] }); // refresca la lista
-    },
-  });
-
   return useMutation({
     mutationFn: (drawing: Draw) => createDrawing(drawing),
     onSuccess: () => {
