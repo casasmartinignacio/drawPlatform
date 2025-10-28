@@ -41,6 +41,25 @@ body {
   position: relative;
 }
 
+
+/* Estilos básicos para un botón de guardado */
+.save-button {
+  background-color: #4CAF50; /* Color de fondo verde */
+  color: white; /* Color del texto */
+  padding: 12px 24px; /* Espaciado interno */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Cursor de mano al pasar */
+  font-size: 16px; /* Tamaño de la fuente */
+  transition: background-color 0.3s ease; /* Transición suave al cambiar de color */
+}
+
+/* Estilos al pasar el cursor por encima */
+.save-button:hover {
+  background-color: #45a049; /* Color más oscuro al pasar el cursor */
+}
+
+
 /* Estilos responsivos para diferentes tamaños de pantalla */
 @media (max-width: 768px) {
   .excalidraw-container {

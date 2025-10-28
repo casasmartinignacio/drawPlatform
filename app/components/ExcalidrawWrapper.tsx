@@ -1,7 +1,10 @@
 "use client";
 import { Excalidraw, convertToExcalidrawElements } from "@excalidraw/excalidraw";
-
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import "@excalidraw/excalidraw/index.css";
+import { SaveButton } from "./SaveButton";
+
+const queryClient = new QueryClient();
 
 const ExcalidrawWrapper: React.FC = () => {
     console.info(convertToExcalidrawElements([{
@@ -13,11 +16,19 @@ const ExcalidrawWrapper: React.FC = () => {
         height: 141.9765625,
     },]));
     return (
-        <div className="excalidraw-container">
-            
-            <div className="excalidraw-wrapper">
-                <Excalidraw />
+        <div>
+        <QueryClientProvider client={queryClient}>
+                <SaveButton
+                    author="Usuario"
+                    tags={["tag1", "tag2"]}
+                    data="Contenido del dibujo"
+                />
+            <div className="excalidraw-container">
+                <div className="excalidraw-wrapper">
+                    <Excalidraw />
+                </div>
             </div>
+        </QueryClientProvider>
         </div>
     );
 };
