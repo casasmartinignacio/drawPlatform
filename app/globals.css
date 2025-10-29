@@ -1,26 +1,116 @@
-@import "tailwindcss";
+/* /app/globals.css */
 
+/* --- Variables de Tema Oscuro --- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Fondo principal y textos */
+  --color-background-primary: #121212; /* Fondo oscuro principal */
+  --color-background-secondary: #1f1f1f; /* Fondo de contenedores/cards */
+  --color-text-primary: #e0e0e0; /* Texto claro */
+  --color-text-secondary: #a0a0a0; /* Texto secundario/descriptivo */
+  
+  /* Colores de acento (Accent/Primary) */
+  --color-accent: #cfe5f7; /* Azul suave */
+  --color-accent-hover: #d5e8f8;
+  
+  /* Estilos del borde y separadores */
+  --color-border: #333333;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* --- Reseteo Básico y Aplicación del Tema --- */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  
+  /* Aplicación del tema oscuro */
+  background-color: var(--color-background-primary);
+  color: var(--color-text-primary);
+  min-height: 100vh;
+  display: flex; /* Para el layout de columna */
+  flex-direction: column;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* globals.css */
+
+.excalidraw-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.excalidraw-wrapper {
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  position: relative;
+}
+
+
+/* Estilos básicos para un botón de guardado */
+.save-button {
+  background-color: #4CAF50; /* Color de fondo verde */
+  color: white; /* Color del texto */
+  padding: 12px 24px; /* Espaciado interno */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Cursor de mano al pasar */
+  font-size: 16px; /* Tamaño de la fuente */
+  transition: background-color 0.3s ease; /* Transición suave al cambiar de color */
+}
+
+/* Estilos al pasar el cursor por encima */
+.save-button:hover {
+  background-color: #45a049; /* Color más oscuro al pasar el cursor */
+}
+
+
+/* Estilos responsivos para diferentes tamaños de pantalla */
+@media (max-width: 768px) {
+  .excalidraw-container {
+    height: 70vh;
+  }
+  
+  .excalidraw-wrapper {
+    height: 100%;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@media (max-width: 480px) {
+  .excalidraw-container {
+    height: 60vh;
+  }
+}
+
+/* Opcional: Asegurar que el canvas de Excalidraw sea responsivo */
+.excalidraw-wrapper .excalidraw {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.excalidraw-wrapper .excalidraw .canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Estilos de la aplicación */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Estilos de Link para tema oscuro */
+.nav-link {
+    color: var(--color-text-primary);
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    background-color: var(--color-background-secondary);
+    color: var(--color-accent);
 }
