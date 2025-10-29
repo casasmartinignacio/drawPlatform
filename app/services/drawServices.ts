@@ -1,32 +1,20 @@
-export interface Draw {
-  id: string; 
-  author?: string;
-  tags: string[];
-  data: string; 
-}
-
-export interface DrawResponse {
-  message: string;
-  data?: Draw[];
-  code?: string;
-}
+import axios from "axios" 
+import {Draw, DrawResponse} from "@/types/common"
 
 export const drawingsService = {
   getAll: async (): Promise<DrawResponse> => {
-    const res = await fetch("/api/drawings");
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.message);
-    return data;
+    const res = await axios.get("/api/drawings");
+    if (res.status != 200) throw new Error(res.data.message);
+    return res.data;
   },
 
   create: async (draw: Draw): Promise<DrawResponse> => {
-    const res = await fetch("/api/drawings", {
+    const res = await axios.post("/api/drawings", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(draw),
     });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.message);
-    return data;
+    if (res.status != 201) throw new Error(res.data.message);
+    return res.data;
   },
 };
