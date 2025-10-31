@@ -1,9 +1,9 @@
-import useDrawings from '@/app/drawingsList/useDrawings';
+import { drawService } from "@/app/api/services/drawBackServices";
 import DrawList from '@/components/DrawingList';
 
 export default async function DrawingsList() {
-  const drawings = await useDrawings();
-
+  const drawings = await drawService.getAll();
+  
   return (
     <div className="min-h-screen bg-black text-white px-8 py-10 flex flex-col items-center">
       <div className="w-full max-w-5xl bg-neutral-900 border border-neutral-800 rounded-2xl shadow-lg p-10">

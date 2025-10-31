@@ -1,8 +1,11 @@
 import { DrawResponse, Draw } from "@/types/common";
 import SingleDraw from "./Draw";
 
-export default async function DrawingsList(params: DrawResponse) {
-  const drawings = params.data || [];
+type DrawListProps = {
+  drawings: Draw[];
+};
+
+export default async function DrawingsList({ drawings }: DrawListProps) {
 
   return (
     <div>
