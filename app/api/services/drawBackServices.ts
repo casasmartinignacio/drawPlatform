@@ -16,7 +16,8 @@ export const drawService = {
     }
 
     // Si falla el error se ataja en route.ts, en caso de exito retorna 201
-    const status = await db.create({ 
+    const status = await db.create({
+      id: draw.id, 
       tags: draw.tags,
       data: draw.data,
       ...(draw.author ? { author: draw.author } : {}), 
