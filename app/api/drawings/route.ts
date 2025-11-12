@@ -7,25 +7,37 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
 
-    // valida existencia de los parametros de la request
     if (!body.data || !Array.isArray(body.tags) || !body.id) {
-      throw Error("Faltan campos obligatorios: data, tags")
+      throw Error("Faltan campos obligatorios: data, tags, id")
     }
 
     const code = await drawService.create(body);
 
-    const response: DrawResponse = { 
+    const response: DrawResponse = {
       message: "Objeto creado con exito",
-      code: code 
+      code: code
     }
 
     return NextResponse.json(response, { status: 201 });
-  } catch (error: any) {
-    const response: DrawResponse = { 
-      message: error?.message || "Error del servidor :(" 
+  } catch (error) {
+    console.error('Error en POST /api/drawings:', error);
+
+    if (error instanceof Error) {
+      if (error.message.includes('campos obligatorios') ||
+          error.message.includes('tags') ||
+          error.name === 'InvalidImageFormatError' ||
+          error.name === 'ImageTooLargeError') {
+        return NextResponse.json(
+          { message: error.message },
+          { status: 400 }
+        );
+      }
     }
 
-    return NextResponse.json(response, { status: 500 });
+    return NextResponse.json(
+      { message: "Error del servidor" },
+      { status: 500 }
+    );
   }
 }
 
@@ -40,12 +52,13 @@ export async function GET() {
     }
 
     return NextResponse.json(response, { status: 200 });
-  } catch (error: any) {
-    const response: DrawResponse = { 
-      message: error?.message || "Error del servidor :(" 
-    }
+  } catch (error) {
+    console.error('Error en GET /api/drawings:', error);
 
-    return NextResponse.json(response, { status: 500 });
+    return NextResponse.json(
+      { message: "Error del servidor" },
+      { status: 500 }
+    );
   }
 }
 

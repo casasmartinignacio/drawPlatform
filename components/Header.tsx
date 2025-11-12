@@ -1,8 +1,6 @@
-// /components/Header.tsx
-'use client'; 
-import React, { useState } from 'react'; 
-import Image from 'next/image'; // ¡Importar Image aquí para el logo!
-import Link from 'next/link';
+'use client';
+import React from 'react';
+import Image from 'next/image';
 import Navbar from './Navbar';
 import { useUser } from '../context/UserContext'; 
 
@@ -75,10 +73,9 @@ function UserNameInput() {
         )
       ) : null}
       
-      {/* 4. Mensaje de Bienvenida Ajustado (solo si está confirmado) */}
       {isConfirmed && userName.trim() && (
         <p style={{ margin: '0', fontSize: '1.1em', color: 'var(--color-text-primary)', marginLeft: '10px', fontWeight: 'normal' }}>
-          {userName} 👋
+          {userName.trim().slice(0, 50)} 👋
         </p>
       )}
     </div>
