@@ -34,8 +34,7 @@ class Database {
     try {
       const data = await fs.readFile(DB_PATH, "utf-8");
       return JSON.parse(data);
-    } catch (error) {
-      // Si el archivo no existe, se crea uno nuevo vacío
+    } catch {
       await fs.writeFile(DB_PATH, "[]", "utf-8");
       return [];
     }
@@ -47,16 +46,15 @@ class Database {
   }
 
   public async findAll(): Promise<Drawing[]> {
-   
     const data = await this.readDB();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     return data.map(({ dbId, ...drawing }) => drawing);
   }
 
   
-  public async create(drawing: Drawing) {
+  public async create(drawing: Drawing): Promise<void> {
     const data = await this.readDB();
 
-   
     const validFormats = ["data:image/png;base64,", "data:image/jpeg;base64,"];
     const hasValidFormat = validFormats.some(prefix => drawing.data.startsWith(prefix));
 
@@ -64,16 +62,14 @@ class Database {
       throw new InvalidImageFormatError("El formato de la imagen debe ser PNG o JPEG");
     }
 
-    // 🔍 Validar tamaño (máximo 10 MB)
     const base64Length = drawing.data.length - drawing.data.indexOf(",") - 1;
     const fileSizeInBytes = (base64Length * 3) / 4;
-    const maxSize = 10 * 1024 * 1024; // 10 MB
+    const maxSize = 10 * 1024 * 1024;
 
     if (fileSizeInBytes > maxSize) {
       throw new ImageTooLargeError("La imagen excede el tamaño máximo permitido de 10 MB");
     }
 
-    // 🆕 Creamos un id interno autoincremental
     const newDrawing: DrawingRecord = {
       dbId: data.length > 0 ? Math.max(...data.map(p => p.dbId)) + 1 : 1,
       ...drawing
@@ -81,8 +77,6 @@ class Database {
 
     data.push(newDrawing);
     await this.writeDB(data);
-
-    return 201;
   }
 }
 

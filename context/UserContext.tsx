@@ -42,14 +42,17 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
         }
     }, []); 
 
-    // 2. Guardado de Persistencia (Usando sessionStorage)
     useEffect(() => {
-        if (isLoaded) { 
-            // CAMBIO CLAVE: Usar sessionStorage.setItem
+        if (isLoaded) {
             sessionStorage.setItem(NAME_STORAGE_KEY, userName);
+        }
+    }, [userName, isLoaded]);
+
+    useEffect(() => {
+        if (isLoaded) {
             sessionStorage.setItem(CONFIRM_STORAGE_KEY, String(isConfirmed));
         }
-    }, [userName, isConfirmed, isLoaded]); 
+    }, [isConfirmed, isLoaded]); 
 
     // 3. Función para establecer el nombre, desconfirmando si hay un cambio.
     const updateUserName = (name: string) => {

@@ -1,4 +1,4 @@
-import { DrawResponse, Draw } from "@/types/common";
+import { Draw } from "@/types/common";
 import SingleDraw from "./Draw";
 
 type DrawListProps = {

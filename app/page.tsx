@@ -12,18 +12,18 @@ export default function Home() {
     : 'Ingresa tu nombre en el encabezado para firmar tus dibujos.';
 
   return (
-    <div 
+    <div
       style={{
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'flex-start',
         textAlign: 'center',
-        padding: '0 20px', 
-        marginTop: '-15px', 
-        backgroundColor: 'var(--color-background-primary)', 
-        color: 'var(--color-text-primary)', 
-        minHeight: 'calc(100vh - 120px)' 
+        padding: '0 20px',
+        marginTop: '-15px',
+        backgroundColor: 'var(--color-background-primary)',
+        color: 'var(--color-text-primary)',
+        minHeight: 'calc(100vh - 120px)'
       }}
     >
       
@@ -108,7 +108,7 @@ const linkCardStyle = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  padding: '15px', 
+  padding: '15px',
   borderRadius: '12px',
   textDecoration: 'none',
   textAlign: 'center',
